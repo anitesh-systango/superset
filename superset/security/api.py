@@ -18,6 +18,7 @@ import logging
 from typing import Any, Dict
 
 from flask import request, Response
+from flask_cors import cross_origin
 from flask_appbuilder import expose
 from flask_appbuilder.api import safe
 from flask_appbuilder.security.decorators import permission_name, protect
@@ -113,6 +114,7 @@ class SecurityRestApi(BaseSupersetApi):
         return self.response(200, result=generate_csrf())
 
     @expose("/guest_token/", methods=["POST"])
+    @cross_origin()
     @event_logger.log_this
     @protect()
     @safe
